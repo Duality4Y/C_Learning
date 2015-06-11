@@ -5,15 +5,15 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
-struct _node
+struct node_t
 {
     uint32_t integer;
     char character;
     char name[50];
-    struct _node *next;
+    struct node_t *next;
 };
 
-typedef struct _node node_t;
+typedef struct node_t node_t;
 
 node_t *createNode();
 void deleteNode();
