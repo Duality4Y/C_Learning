@@ -7,6 +7,6 @@ node_t *createNode()
     {
         abort();
     }
-    newNode->next = 0;
+    newNode->next = NULL;
     return newNode;
 }
