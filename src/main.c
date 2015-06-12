@@ -3,4 +3,5 @@
 
 int main(void)
 {
+	Node_t *node = createNode();
 }
