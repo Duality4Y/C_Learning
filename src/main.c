@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "stack.h"
+#include "stacktesting.h"
 
 int main(void)
 {
-	Node_t *node = createNode();
+    stackTesting();
+	return 0;
 }

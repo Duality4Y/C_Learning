@@ -11,6 +11,6 @@
 # print(GetBuildPath(hello_objs))
 
 src_path = ['src/']
-src = ['main.c', 'stack.c']
+src = Split('main.c stack.c stacktesting.c')
 Repository(src_path)
 Program('main', [src])
