@@ -7,18 +7,28 @@
 
 struct node_t
 {
-    uint32_t integer;
+    long integer;
     char character;
+    
     char name[50];
+
+    int type;
+    short precedence;
+    short assoc;
+    
     struct node_t *next;
 };
 
 typedef struct node_t node_t;
 
+static node_t *stack = NULL;
+
 node_t *createNode();
-void deleteNode();
+void deleteNode(node_t**);
 
 void push(node_t *);
 node_t *pop();
+
+node_t *getStack();
 
 #endif
