@@ -5,24 +5,9 @@
 #include <stdlib.h>
 #include <inttypes.h>
 #include <assert.h>
+#include "types.h"
 
-struct node_t
-{
-    long integer;
-    char character;
-    
-    char name[50];
-
-    int type;
-    short precedence;
-    short assoc;
-    
-    struct node_t *next;
-};
-
-typedef struct node_t node_t;
-
-static node_t *stack = NULL;
+node_t *stack;
 
 node_t *createNode();
 void deleteNode(node_t**);

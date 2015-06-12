@@ -3,16 +3,14 @@
 node_t *createNode()
 {
     node_t *newNode = (node_t *)calloc(1, sizeof(node_t));
-    if(newNode == NULL)
-    {
-        abort();
-    }
+    assert(newNode != NULL);
     newNode->next = NULL;
     return newNode;
 }
 
 void deleteNode(node_t **node)
 {
+    assert(node != NULL);
     free(*node);
     *node = NULL;
 }

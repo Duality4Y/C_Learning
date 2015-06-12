@@ -10,7 +10,9 @@
 
 # print(GetBuildPath(hello_objs))
 
+env = Environment(CC='gcc', CCFLAGS='-Wall')
+
 src_path = ['src/']
-src = Split('main.c stack.c stacktesting.c')
-Repository(src_path)
-Program('main', [src])
+src = Split('main.c stack.c stacktesting.c ops.c')
+env.Repository(src_path)
+env.Program('main', [src])
