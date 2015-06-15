@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include "stack.h"
 #include "types.h"
 #include "stacktesting.h"
@@ -30,18 +31,35 @@ int readPrompt(char *buffer, int size)
     return index;
 }
 
-node_t *tokenize()
+node_t *tokenize(char *buffer, int length)
 {
+    int i;
+    for(i = 0;i < length;i++)
+    {
+        char data = buffer[i];
+        if(isdigit(data))
+        {
+            node_t *num = createNode();
+            char numbuff[21];
+            int number = 0;
+            int numi = 0;
+            while(isdigit(data))
+            {
+
+            }
+        }
+    }
     return NULL;
 }
 
 int main(void)
 {
     // stackTesting();
-    int newinput = readPrompt(input, INPUTSIZE);
+    // int newinput = readPrompt(input, INPUTSIZE);
+    int newinput = 0;
     if(newinput > 0)
     {
-        //node_t *tokens = tokenize(input, newinput);
+        node_t *tokens = tokenize(input, newinput);
     }
     else if(newinput == -1)
     {

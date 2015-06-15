@@ -10,7 +10,9 @@ typedef struct node_t
     long integer;
     char character;
     char name[50];
+
     int type;
+    
     struct op_t *operator;
     struct node_t *next;
 } node_t;
