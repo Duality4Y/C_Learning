@@ -13,6 +13,7 @@
 env = Environment(CC='gcc', CCFLAGS='-Wall')
 
 src_path = ['src/']
-src = Split('main.c stack.c stacktesting.c ops.c')
+src = []
+src += ['main.c']
 env.Repository(src_path)
 env.Program('main', [src])
