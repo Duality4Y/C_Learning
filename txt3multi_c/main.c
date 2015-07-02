@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdint.h>
 #include <ctype.h>
 
 int peek()
@@ -15,7 +14,6 @@ int peek()
 int read = 0;
 
 void Expression();
-void SkipWhite();
 
 void GetChar()
 {
@@ -45,7 +43,6 @@ void Match(char mc)
     if(read == mc)
     {
         GetChar();
-        SkipWhite();
     }
     else
     {
@@ -70,83 +67,29 @@ bool IsAddop(char c)
     return(c == '+' || c == '-');
 }
 
-bool IsAlNum(char c)
+char GetName()
 {
-    return(IsAlpha(c) || IsDigit(c));
-}
-
-bool IsWhite(char c)
-{
-    return(c == ' ' || c == '\t');
-}
-
-void SkipWhite()
-{
-    while(IsWhite(read))
-    {
-        GetChar();
-    }
-}
-
-// char GetName()
-// {
-//     if(!IsAlpha(read))
-//     {
-//         Expected("Name");
-//     }
-//     // store previous value before getting a new one.
-//     char data  = read;
-//     GetChar();
-//     return toupper(data);
-// }
-
-char *GetName()
-{
-    static char Token[50];
-    uint8_t Ti = 0;
     if(!IsAlpha(read))
     {
-        Expected("name");
+        Expected("Name");
     }
-    while(IsAlNum(read))
-    {
-        Token[Ti++] = toupper(read);
-        Token[Ti] = '\0';
-        GetChar();
-        SkipWhite();
-    }
-    return Token;
+    // store previous value before getting a new one.
+    char data  = read;
+    GetChar();
+    return toupper(data);
 }
 
-// char GetNum()
-// {
-//     if(!IsDigit(read))
-//     {
-//         Expected("Integer");
-//     }
-//     // store previous value before getting a new one.
-//     // and get the actual value.
-//     char data = read-'0';
-//     GetChar();
-//     return data;
-// }
-
-char *GetNum()
+char GetNum()
 {
-    static char value[50];
-    uint8_t Vi = 0;
     if(!IsDigit(read))
     {
         Expected("Integer");
     }
-    while(IsDigit(read))
-    {
-        value[Vi++] = read;
-        value[Vi] = '\0';
-        GetChar();
-        SkipWhite();
-    }
-    return value;
+    // store previous value before getting a new one.
+    // and get the actual value.
+    char data = read-'0';
+    GetChar();
+    return data;
 }
 
 void Emit(char *s)
@@ -164,25 +107,24 @@ void EmitLn(char *s)
 void Init()
 {
     GetChar();
-    SkipWhite();
 }
 
 void Ident()
 {
-    char *name;
+    char name;
     name = GetName();
     if(read == '(')
     {
         Match('(');
         Match(')');
         char message[50];
-        sprintf(message, "BSR %s", name);
+        sprintf(message, "BSR %c", name);
         EmitLn(message);
     }
     else
     {
         char message[50];
-        sprintf(message, "MOVE %s(PC), D0", GetName());
+        sprintf(message, "MOVE %c(PC), D0", GetName());
         EmitLn(message);
     }
 }
@@ -202,7 +144,7 @@ void Factor()
     else
     {
         char message[50];
-        sprintf(message, "MOVE #%s, D0", GetNum());
+        sprintf(message, "MOVE #%d, D0", GetNum());
         EmitLn(message);
     }
 }
@@ -288,12 +230,12 @@ void Expression()
 
 void Assignment()
 {
-    char *name;
+    char name;
     name = GetName();
     Match('=');
     Expression();
     char message[50];
-    sprintf(message, "LEA %s (PC), A0", name);
+    sprintf(message, "LEA %c (PC), A0", name);
     EmitLn(message);
     EmitLn("MOVE D0, (A0)");
 }
