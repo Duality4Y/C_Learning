@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define TAB "\t"
+#define TAB '\t'
 int read = 0;
 
 void Expression();
@@ -63,7 +63,7 @@ char GetName()
     {
         Expected("Name");
     }
-    char data = toupper(read);
+    char data = upper(read);
     GetChar();
     return data;
 }
@@ -94,36 +94,13 @@ void EmitLn(char *s)
 void Init()
 {
     GetChar();
-}
-
-void Other()
-{
-    char message[50];
-    sprintf(message, "%c", GetName());
-    EmitLn(message);
-}
-
-void Block()
-{
-    while( read != 'e')
-    {
-        Other();
-    }
-}
-
-void DoProgram()
-{
-    Block();
-    if(read != 'e')
-    {
-        Expected("End");
-    }
-    EmitLn("END");
+    SkipWhite();
 }
 
 int main(void)
 {
     Init();
-    DoProgram();
+    if(read != '\n')
+        Expected("Newline");
     return 0;
 }
