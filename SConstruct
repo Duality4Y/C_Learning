@@ -10,10 +10,11 @@
 
 # print(GetBuildPath(hello_objs))
 
-env = Environment(CC='gcc', CCFLAGS='-Wall')
+env = Environment(CC='gcc', CCFLAGS='-Wall -g')
 
 src_path = ['src/']
 src = []
 src += ['main.c']
+src += ['scanner.c']
 env.Repository(src_path)
 env.Program('main', [src])
